@@ -1,0 +1,45 @@
+{
+    "products": [
+      {
+        "id": "1",
+        "name": "bag",
+        "categoryId": "1",
+        "description": "Excellent material and amazing design",
+        "price": 20,
+        "quantity": 12
+      },
+      {
+        "id": "2",
+        "name": "shoes",
+        "categoryId": "1",
+        "description": "good material",
+        "price": 33,
+        "quantity": 5
+      }
+    ],
+    "categories": [
+      {
+        "id": "1",
+        "title": "new clothes",
+        "description": "clothes Category"
+      },
+      {
+        "id": "2",
+        "title": "Assets",
+        "description": "assets Category"
+      }
+    ],
+    "ads": [
+      {
+        "id": "1",
+        "imagePath": "images/ad1.jpg",
+        "description": "Exclusive Offer!"
+      },
+      {
+        "id": "2",
+        "imagePath": "images/ad2.jpg",
+        "description": "Limited Time Discount!"
+      }
+    ]
+  }
+  
