@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter/material.dart';
+import 'package:wicca_store_3/models/ads.model.dart';
+import 'package:wicca_store_3/widgets/home/ads.dart';
 
 class CarouselSliderEx extends StatefulWidget {
-  final List<String> items;
-  const CarouselSliderEx({required this.items, super.key});
+  final List<Ad> ads;
+  const CarouselSliderEx({required this.ads, Key? key}) : super(key: key);
 
   @override
   State<CarouselSliderEx> createState() => _CarouselSliderExState();
@@ -40,30 +42,44 @@ class _CarouselSliderExState extends State<CarouselSliderEx> {
       children: [
         CarouselSlider(
           options: options,
-          items: widget.items.map((i) {
+          items: widget.ads.map((ad) {
             return Builder(
               builder: (BuildContext context) {
-                return Container(
+                return GestureDetector(
+                  onTap: () {
+                    // Navigate to AdsPage when the carousel item is tapped
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AdsPage(ad: ad),
+                      ),
+                    );
+                  },
+                  child: Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.symmetric(horizontal: 5.0),
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 255, 90, 7)),
+                      color: const Color.fromARGB(255, 255, 90, 7),
+                    ),
                     child: Text(
-                      'text $i',
+                      ad.title ?? 'No Title',
                       style: TextStyle(fontSize: 16.0),
-                    ));
+                    ),
+                  ),
+                );
               },
             );
           }).toList(),
         ),
         DotsIndicator(
-          dotsCount: 5,
+          dotsCount: widget.ads.length,
           position: currentPosition,
           decorator: DotsDecorator(
             size: const Size.square(9.0),
             activeSize: const Size(18.0, 9.0),
             activeShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
+              borderRadius: BorderRadius.circular(5.0),
+            ),
           ),
         )
       ],
