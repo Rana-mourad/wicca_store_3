@@ -1,9 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:wicca_store_3/Services/prefrence_servce.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wicca_store_3/views/Auth.dart';
 import 'package:wicca_store_3/views/master_page.dart';
 import 'package:wicca_store_3/views/signinup.dart';
+import 'package:get_it/get_it.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   @override
@@ -77,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(width: 10),
                         GestureDetector(
                           onTap: () {
-                            // Navigate to AuthPage when "Forgot Password" is clicked
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -179,8 +179,8 @@ class _LoginPageState extends State<LoginPage> {
                     ElevatedButton(
                       onPressed: () {
                         if ((formKey.currentState?.validate() ?? false)) {
-                          PrefrencesService.prefs
-                              ?.setString('user', emailController.text);
+                          GetIt.I<SharedPreferences>()
+                              .setString('user', emailController.text);
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
