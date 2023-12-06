@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wicca_store_3/Services/prefrence_servce.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wicca_store_3/views/login.dart';
 import 'package:wicca_store_3/views/master_page.dart';
+import 'package:get_it/get_it.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -19,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void checkUser() async {
     await Future.delayed(const Duration(milliseconds: 500));
-    var result = PrefrencesService.prefs?.get('user');
+    var result = GetIt.I<SharedPreferences>().get('user');
     if (context.mounted) {
       if (result != null) {
         Navigator.pushReplacement(
