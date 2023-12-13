@@ -5,7 +5,10 @@ import 'package:wicca_store_3/widgets/cutom_button.dart';
 
 class CarouselSliderEx extends StatefulWidget {
   const CarouselSliderEx(
-      {required this.imageUrls, required this.onBtnPressed, super.key});
+      {required this.imageUrls,
+      required this.onBtnPressed,
+      super.key,
+      required Null Function(dynamic index, dynamic reason) onPageChanged});
 
   final List<String> imageUrls;
   final void Function() onBtnPressed;
