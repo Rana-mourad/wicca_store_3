@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wicca_store_3/views/login.dart';
 import 'package:wicca_store_3/views/master_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_it/get_it.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
+  const SplashPage({Key? key}) : super(key: key);
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  _SplashPageState createState() => _SplashPageState();
 }
 
 class _SplashPageState extends State<SplashPage> {
@@ -24,10 +24,14 @@ class _SplashPageState extends State<SplashPage> {
     if (context.mounted) {
       if (result != null) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => MasterPage()));
+          context,
+          MaterialPageRoute(builder: (_) => MasterPage()),
+        );
       } else {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => LoginPage()));
+          context,
+          MaterialPageRoute(builder: (_) => LoginPage()),
+        );
       }
     }
   }
