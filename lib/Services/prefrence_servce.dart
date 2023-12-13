@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PrefrencesService {
+class PreferencesService {
   static SharedPreferences? _prefs;
 
   static Future<void> init() async {
     try {
       debugPrint(
-          '=============================init Prefrences ===================================');
+          '=============================init Preferences ===================================');
       _prefs = await SharedPreferences.getInstance();
     } catch (e) {
-      print('>>> error in config prefrences ${e.toString()}');
+      print('>>> error in config preferences ${e.toString()}');
     }
   }
 
-  static SharedPreferences? get prefs => _prefs;
+  static SharedPreferences? get preferences => _prefs;
 }
