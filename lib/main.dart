@@ -1,33 +1,33 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wicca_store_3/firebase_options.dart';
 import 'package:wicca_store_3/provider/CartProvider.dart';
 import 'package:wicca_store_3/provider/FavouriteProvider.dart';
 import 'package:wicca_store_3/provider/ProductProvider.dart';
 import 'package:wicca_store_3/provider/ProfileProvider.dart';
 import 'package:wicca_store_3/theme/themeutils.dart';
 import 'package:get_it/get_it.dart';
-import 'package:wicca_store_3/views/login.dart';
-import 'package:wicca_store_3/views/master_page.dart';
 import 'package:wicca_store_3/views/splashpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Initialize Firebase
+  await Firebase.initializeApp();
+  DefaultFirebaseOptions.currentPlatform;
+
   var preferenceInstance = await SharedPreferences.getInstance();
   GetIt.I.registerSingleton<SharedPreferences>(preferenceInstance);
+
   var result = GetIt.I.allReadySync();
 
   if (result == true) {
-    print('Preferences set successfully');
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>> prefrences set successfully');
   } else {
-    print('Error when setting preferences');
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Error When Set prefrences');
   }
-
-  GetIt.I.registerSingleton<ProductProvider>(ProductProvider());
-  GetIt.I.registerSingleton<FavouriteProvider>(FavouriteProvider());
-  GetIt.I.registerSingleton<CartProvider>(CartProvider());
-  GetIt.I.registerSingleton<ProfileProvider>(ProfileProvider());
-
   runApp(const MyApp());
 }
 
@@ -38,16 +38,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      title: 'Wicca shop',
-      theme: ThemeUtils.themeData,
-      home: SplashPage(),
-      routes: {
-        "/login": (context) => LoginPage(),
-        "/master": (context) => MasterPage()
-      },
+    // Using MultiProvider for better management
+    return MultiProvider(
+      providers: [
+        // Registering providers
+        Provider<ProductProvider>(
+          create: (_) => ProductProvider(),
+        ),
+        Provider<FavouriteProvider>(
+          create: (_) => FavouriteProvider(),
+        ),
+        Provider<CartProvider>(
+          create: (_) => CartProvider(),
+        ),
+        Provider<ProfileProvider>(
+          create: (_) => ProfileProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        debugShowCheckedModeBanner: false,
+        title: 'Wicca shop',
+        theme: ThemeUtils.themeData,
+        home: SplashPage(),
+      ),
     );
   }
 }
