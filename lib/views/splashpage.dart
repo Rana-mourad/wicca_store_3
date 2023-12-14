@@ -1,14 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:wicca_store_3/views/login.dart';
-import 'package:wicca_store_3/views/master_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wicca_store_3/views/homepage.dart';
+import 'package:wicca_store_3/views/login.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({super.key});
 
   @override
-  _SplashPageState createState() => _SplashPageState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
 class _SplashPageState extends State<SplashPage> {
@@ -25,13 +26,18 @@ class _SplashPageState extends State<SplashPage> {
       if (result != null) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => MasterPage()),
+          MaterialPageRoute(builder: (_) => const HomePage()),
         );
       } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => LoginPage()),
-        );
+        FirebaseAuth.instance.authStateChanges().listen((user) {
+          if (user == null) {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (_) => const LoginPage()));
+          } else {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (_) => const HomePage()));
+          }
+        });
       }
     }
   }
