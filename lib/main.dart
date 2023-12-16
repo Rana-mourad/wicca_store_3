@@ -13,8 +13,6 @@ import 'package:wicca_store_3/views/splashpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Initialize Firebase
   await Firebase.initializeApp();
   DefaultFirebaseOptions.currentPlatform;
 
@@ -38,10 +36,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Using MultiProvider for better management
     return MultiProvider(
       providers: [
-        // Registering providers
         Provider<ProductProvider>(
           create: (_) => ProductProvider(),
         ),
